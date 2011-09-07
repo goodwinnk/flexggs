@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:local="ggs.graphcore">
+			   
+	<s:applicationComplete>onApplicationComplete()</s:applicationComplete>
+	
+	<fx:Script source="MainIncluded.as"/>
+	
+	<s:VGroup>
+		<s:HGroup>
+			<s:Group id="canvas" width="300" height="300">
+			</s:Group>
+		</s:HGroup>		
+		
+		<s:ButtonBar id="viewMenu" requireSelection="true" change="changeButtonSelection(event)">
+            <s:dataProvider>
+                <s:ArrayCollection source="['Canvas', 'Vertex', 'Edge', 'Pursuer', 'Emulation']" />
+            </s:dataProvider>
+        </s:ButtonBar>
+		
+		<s:Button label="Trace" click="app.traceGraph()" />
+	</s:VGroup>	
+	
+</s:Application>
