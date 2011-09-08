@@ -58,6 +58,25 @@ package ggs.graphcore {
 			});
 		}
 		
+		public function getBeginEdges(vertex:Vertex):Vector.<Edge>
+		{
+			return edges.filter(function (item:Edge, index:int, vector:Vector.<Edge>):Boolean { 
+				return item.begin.id == vertex.id;
+			});
+		}
+		
+		public function getEndEdges(vertex:Vertex):Vector.<Edge>
+		{
+			return edges.filter(function (item:Edge, index:int, vector:Vector.<Edge>):Boolean { 
+				return item.end.id == vertex.id;
+			});
+		}		
+		
+		public function getIncidentEdges(vertex:Vertex):Vector.<Edge>
+		{
+			return getBeginEdges(vertex).concat(getEndEdges(vertex));
+		}
+		
 		public function accept(visitor:IGraphVisitor):void 
 		{
 			visitor.visitGraph(this);

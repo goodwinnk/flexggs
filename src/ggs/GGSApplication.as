@@ -66,7 +66,6 @@ package ggs
 
 		public function toVertexMode():void
 		{	
-			trace("Vertex mode");
 			mode = ApplicationMode.VERTEX_MODE;		
 			registerVertexodeListeners();
 		}
