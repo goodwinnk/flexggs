@@ -58,7 +58,7 @@ package ggs.visual
 		private function draw():void
 		{
 			graphics.clear();
-			graphics.lineStyle(4, !_isHighlited ? 0xff0000 : 0x00ff00);
+			graphics.lineStyle(4, (!_isHighlited ? 0xff0000 : 0x00ff00));
 			graphics.moveTo(edge.begin.point.x, edge.begin.point.y);
 			graphics.lineTo(edge.end.point.x, edge.end.point.y);
 		}
