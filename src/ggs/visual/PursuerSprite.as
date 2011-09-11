@@ -1,5 +1,6 @@
 package ggs.visual 
 {
+	import ggs.problem.Pursuer;
 	import spark.core.SpriteVisualElement;
 	/**
 	 * ...
@@ -7,17 +8,14 @@ package ggs.visual
 	 */
 	public class PursuerSprite extends SpriteVisualElement implements IHighlightable
 	{
-		private var _x:int;
-		private var _y:int;
-		private var _radius:Number;		
+		private var _pursuer:Pursuer;
 		
+		private var _isSelected:Boolean;		
 		private var _isHighlited:Boolean;
 		
-		public function PursuerSprite(x:int, y:int, radius:Number) 
+		public function PursuerSprite(pursuer:Pursuer) 
 		{
-			_x = x;
-			_y = y;
-			_radius = radius;
+			_pursuer = pursuer;
 		}
 		
 		public function get isHighlighted():Boolean { return _isHighlited; }
@@ -32,6 +30,18 @@ package ggs.visual
 			invalidateParentSizeAndDisplayList();			
 		}
 		
+		public function get isSelected():Boolean { return _isSelected; }
+		public function set isSelected(value:Boolean):void 
+		{ 
+			if (value == _isSelected)
+			{
+				return;
+			}
+			
+			_isSelected = value;
+			invalidateParentSizeAndDisplayList();			
+		}
+		
 		override public function setLayoutBoundsSize(width:Number, height:Number, postLayoutTransform:Boolean = true):void
 		{
 			super.setLayoutBoundsSize(width, height, postLayoutTransform);
@@ -42,12 +52,27 @@ package ggs.visual
 		{
 			graphics.clear();
 			
-			graphics.beginFill(!_isHighlited ? 0xccffcc : 0xccaaaa);
-			graphics.drawCircle(_x, _y, 4);
+			graphics.beginFill(getColor());
+			graphics.drawCircle(_pursuer.getX(), _pursuer.getY(), 4);
 			graphics.endFill()
 			
-			graphics.lineStyle(2, _isHighlited ? 0xccffcc : 0xccaaaa);
-			graphics.drawCircle(_x, _y, _radius);
+			graphics.lineStyle(2, getColor());
+			graphics.drawCircle(_pursuer.getX(), _pursuer.getY(), _pursuer.radius);
+		}
+		
+		private function getColor():int
+		{
+			if (_isSelected)
+			{
+				return 0x88eeff;
+			}
+			
+			if (_isHighlited)
+			{
+				return 0xccaaaa;
+			}
+			
+			return 0xccffcc;
 		}
 	}
 

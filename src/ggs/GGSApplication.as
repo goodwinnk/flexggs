@@ -3,6 +3,7 @@ package ggs
 	import flash.events.MouseEvent;
 	import ggs.graphcore.Graph;
 	import ggs.graphcore.Vertex;
+	import ggs.problem.Pursuer;
 	import ggs.visual.EdgeSprite;
 	import ggs.visual.IHighlightable;
 	import ggs.visual.PursuerSprite;
@@ -107,13 +108,33 @@ package ggs
 		{
 			if (overVertex)
 			{
-				var sprite:PursuerSprite = new PursuerSprite(overVertex.graphVertex.point.x, overVertex.graphVertex.point.y, 20);
+				var sprite:PursuerSprite = new PursuerSprite(
+					new Pursuer(20, overVertex.graphVertex));
 			
-				// sprite.addEventListener(MouseEvent.ROLL_OVER, vertexMouseOver);
-				// sprite.addEventListener(MouseEvent.ROLL_OUT, vertexMouseOut);	
+				sprite.addEventListener(MouseEvent.ROLL_OVER, pursuerMouseOver);
+				sprite.addEventListener(MouseEvent.ROLL_OUT, pursuerMouseOut);	
+				sprite.addEventListener(MouseEvent.CLICK, pursuerMouseClick);	
 				
 				canvasGroup.addElement(sprite);
 			}
+		}
+		
+		private function pursuerMouseOver(event:MouseEvent):void
+		{
+			var sprite:PursuerSprite = event.currentTarget as PursuerSprite;
+			sprite.isHighlighted = true;
+		}
+
+		private function pursuerMouseOut(event:MouseEvent):void
+		{
+			var sprite:PursuerSprite = event.currentTarget as PursuerSprite;
+			sprite.isHighlighted = false;
+		}
+		
+		private function pursuerMouseClick(event:MouseEvent):void
+		{
+			var sprite:PursuerSprite = event.currentTarget as PursuerSprite;
+			sprite.isSelected = true;
 		}
 		
 		/* ---------------------------------------------- */
