@@ -6,74 +6,97 @@ package ggs.visual.modes
 	import mx.containers.Canvas;
 	import mx.core.IVisualElement;
 	import spark.components.Group;
+	import mx.managers.CursorManager;
+	
 	/**
 	 * ...
 	 * @author goodwinnk
 	 */
 	public class EvaluationMode implements IGraphCanvasMode
 	{
-		private var _graphCanvas:Group;
-		private var _selectedPursuer:PursuerSprite;
+		private var graphCanvas:Group;
+		private var selectedPursuer:PursuerSprite;
 		
-		private var _overPursuerHelper:OverPursuerHelper;
+		private var overPursuerHelper:OverPursuerHelper;
+		
+		private var selectedMode:EvaluationModePursuerSelected;
 		
 		public function EvaluationMode(graphCanvas:Group) 
 		{
-			_graphCanvas = graphCanvas;
-			
-			_overPursuerHelper = new OverPursuerHelper(graphCanvas);
+			this.graphCanvas = graphCanvas;
+			this.overPursuerHelper = new OverPursuerHelper(graphCanvas);
 		}
 		
 		public function register():void
 		{
-			_overPursuerHelper.enable();
+			overPursuerHelper.enable();
 			
-			for (var i:int = 0; i < _graphCanvas.numElements; i++)
+			for (var i:int = 0; i < graphCanvas.numElements; i++)
 			{
-				var pursuerSprite:PursuerSprite = _graphCanvas.getElementAt(i) as PursuerSprite;
+				var pursuerSprite:PursuerSprite = graphCanvas.getElementAt(i) as PursuerSprite;
 				if (pursuerSprite)
 				{
 					pursuerSprite.addEventListener(MouseEvent.CLICK, selectPursuer);
 				}
 			}
 			
-			_graphCanvas.addEventListener(MouseEvent.MOUSE_MOVE, emulationModeMouseMove);
+			graphCanvas.addEventListener(MouseEvent.MOUSE_MOVE, emulationModeMouseMove);
 		}
 		
 		public function unregister():void
 		{
-			_overPursuerHelper.disable();
+			overPursuerHelper.disable();
 			
-			for (var i:int = 0; i < _graphCanvas.numElements; i++)
+			for (var i:int = 0; i < graphCanvas.numElements; i++)
 			{
-				var pursuerSprite:PursuerSprite = _graphCanvas.getElementAt(i) as PursuerSprite;
+				var pursuerSprite:PursuerSprite = graphCanvas.getElementAt(i) as PursuerSprite;
 				if (pursuerSprite)
 				{
 					pursuerSprite.removeEventListener(MouseEvent.CLICK, selectPursuer);
 				}
 			}
 			
-			_graphCanvas.removeEventListener(MouseEvent.MOUSE_MOVE, emulationModeMouseMove);
+			graphCanvas.removeEventListener(MouseEvent.MOUSE_MOVE, emulationModeMouseMove);
+			
+			if (selectedMode)
+			{
+				selectedMode.unregister();
+				selectedMode = null;
+			}
+			
+			if (selectedPursuer)
+			{
+				selectedPursuer.isSelected = false;
+			}
 		}
 		
 		private function selectPursuer(event:MouseEvent):void
 		{
 			var sprite:PursuerSprite = event.currentTarget as PursuerSprite;
 			
-			if (_selectedPursuer == sprite)
+			if (selectedMode)
 			{
-				_selectedPursuer.isSelected = false;
-				_selectedPursuer = null;
+				selectedMode.unregister();
+				selectedMode = null;
+			}
+			
+			if (selectedPursuer == sprite)
+			{
+				selectedPursuer.isSelected = false;
+				selectedPursuer = null;
 			}
 			else
 			{
-				if (_selectedPursuer)
+				if (selectedPursuer)
 				{
-					_selectedPursuer.isSelected = false;
+					selectedPursuer.isSelected = false;
 				}
 				
-				_selectedPursuer = sprite;
-				_selectedPursuer.isSelected = true;				
+				selectedPursuer = sprite;
+				selectedPursuer.isSelected = true;				
+				
+				selectedMode = new EvaluationModePursuerSelected(graphCanvas, selectedPursuer);
+				selectedMode.register();
 			}
 		}
 		

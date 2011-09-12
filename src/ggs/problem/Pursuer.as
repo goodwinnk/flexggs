@@ -38,6 +38,8 @@ package ggs.problem
 			}
 		}
 		
+		public function get graph():Graph { return _graph; }
+		
 		public function get isInVertex():Boolean { return _onVertex != null; }
 		public function get isOnEdge():Boolean { return _onEdge != null; }
 		

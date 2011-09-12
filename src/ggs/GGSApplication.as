@@ -15,9 +15,9 @@ package ggs
 	import ggs.visual.PursuerSprite;
 	import ggs.visual.VertexSprite;
 	import mx.core.IVisualElement;
-	import mx.managers.CursorManager;
 	import spark.components.Group;
 	import spark.core.SpriteVisualElement;
+	
 	/**
 	 * ...
 	 * @author goodwinnk

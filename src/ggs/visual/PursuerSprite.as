@@ -18,6 +18,8 @@ package ggs.visual
 			_pursuer = pursuer;
 		}
 		
+		public function get pursuer():Pursuer { return _pursuer; }
+		
 		public function get isHighlighted():Boolean { return _isHighlited; }
 		public function set isHighlighted(value:Boolean):void 
 		{ 
@@ -46,6 +48,18 @@ package ggs.visual
 		{
 			super.setLayoutBoundsSize(width, height, postLayoutTransform);
 			draw();
+		}
+		
+		public function moveToVertex(vertexSprite:VertexSprite):void
+		{
+			_pursuer.moveToVertex(vertexSprite.graphVertex);
+			invalidateParentSizeAndDisplayList();
+		}
+		
+		public function moveToEdge(edgeSprite:EdgeSprite, edgeRatio:Number):void
+		{
+			_pursuer.moveToEdge(edgeSprite.graphEdge, edgeRatio);
+			invalidateParentSizeAndDisplayList();
 		}
 		
 		public function draw():void
