@@ -122,7 +122,7 @@ package ggs.visual.modes
 			unregister();
 			
 			var vertexSprite:VertexSprite = event.target as VertexSprite;			
-			selectedPursuer.pursuer.moveToVertex(vertexSprite.graphVertex);
+			selectedPursuer.moveToVertex(vertexSprite);
 			
 			register();
 		}
@@ -132,12 +132,7 @@ package ggs.visual.modes
 			unregister();
 			
 			var edgeSprite:EdgeSprite = event.target as EdgeSprite;
-			
-			// var left:Number = edgeSprite.left;
-			// var right:Number = edgeSprite.right;
-			
-			selectedPursuer.pursuer.moveToEdge(edgeSprite.graphEdge, 0.5);
-			selectedPursuer.invalidateLayoutDirection();
+			selectedPursuer.moveToEdge(edgeSprite, edgeSprite.mouseX);
 			
 			register();
 		}		

@@ -1,5 +1,6 @@
 package ggs.visual 
 {
+	import ggs.graphcore.Vertex;
 	import ggs.problem.Pursuer;
 	import spark.core.SpriteVisualElement;
 	/**
@@ -56,9 +57,9 @@ package ggs.visual
 			invalidateParentSizeAndDisplayList();
 		}
 		
-		public function moveToEdge(edgeSprite:EdgeSprite, edgeRatio:Number):void
-		{
-			_pursuer.moveToEdge(edgeSprite.graphEdge, edgeRatio);
+		public function moveToEdge(edgeSprite:EdgeSprite, edgeX:Number):void
+		{	
+			_pursuer.moveToEdge(edgeSprite.graphEdge, edgeX);
 			invalidateParentSizeAndDisplayList();
 		}
 		
@@ -67,11 +68,11 @@ package ggs.visual
 			graphics.clear();
 			
 			graphics.beginFill(getColor());
-			graphics.drawCircle(_pursuer.getX(), _pursuer.getY(), 4);
+			graphics.drawCircle(_pursuer.x, _pursuer.y, 4);
 			graphics.endFill()
 			
 			graphics.lineStyle(2, getColor());
-			graphics.drawCircle(_pursuer.getX(), _pursuer.getY(), _pursuer.radius);
+			graphics.drawCircle(_pursuer.x, _pursuer.y, _pursuer.radius);
 		}
 		
 		private function getColor():int

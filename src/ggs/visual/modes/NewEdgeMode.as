@@ -50,29 +50,32 @@ package ggs.visual.modes
 		
 		private function edgeModeMouseDown(event:MouseEvent):void
 		{
-			_drawEdge = true;
-			
-			var edgeStartX:Number = _graphCanvas.mouseX;
-			var edgeStartY:Number = _graphCanvas.mouseY;
-			
-			var startVertex:Vertex;
-			
-			if (_overVertexHelper.overVertex)
+			if (!_drawEdge)
 			{
-				startVertex = _overVertexHelper.overVertex.graphVertex;
-			}
-			else
-			{
-				startVertex = _graph.createVertex(edgeStartX, edgeStartY, null);
-				_graphCanvas.addElement(new VertexSprite(startVertex));
-			}
+				_drawEdge = true;
+				
+				var edgeStartX:Number = _graphCanvas.mouseX;
+				var edgeStartY:Number = _graphCanvas.mouseY;
+				
+				var startVertex:Vertex;
+				
+				if (_overVertexHelper.overVertex)
+				{
+					startVertex = _overVertexHelper.overVertex.graphVertex;
+				}
+				else
+				{
+					startVertex = _graph.createVertex(edgeStartX, edgeStartY, null);
+					_graphCanvas.addElement(new VertexSprite(startVertex));
+				}
 
-			_edgeSprite = new EdgeSprite(_graph.createEdge(
-				startVertex, 
-				_graph.createVertex(edgeStartX, edgeStartY, null),
-				null));
-			
-			_graphCanvas.addElementAt(_edgeSprite, 0);
+				_edgeSprite = new EdgeSprite(_graph.createEdge(
+					startVertex, 
+					_graph.createVertex(edgeStartX, edgeStartY, null),
+					null));
+				
+				_graphCanvas.addElementAt(_edgeSprite, 0);
+			}
 		}
 		
 		private function edgeModeMouseUp(event:MouseEvent):void
