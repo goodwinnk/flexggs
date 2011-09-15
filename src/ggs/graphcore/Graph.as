@@ -5,14 +5,17 @@ package ggs.graphcore {
 		private var nextEdgeId:int = 0;
 		private var nextVertexId:int = 0;
 		
-		private var verticies:Vector.<Vertex>;
-		private var edges:Vector.<Edge>;
+		private var _verticies:Vector.<Vertex>;
+		private var _edges:Vector.<Edge>;
 		
 		public function Graph()
 		{
-			verticies = new Vector.<Vertex>();
-			edges = new Vector.<Edge>();
+			_verticies = new Vector.<Vertex>();
+			_edges = new Vector.<Edge>();
 		}
+		
+		public function get verticies():Vector.<Vertex> { return _verticies; }
+		public function get edges():Vector.<Edge> { return _edges; }
 		
 		public function toString() : String {
 			var str:String = "Graph:\n";
@@ -39,7 +42,7 @@ package ggs.graphcore {
 		
 		public function removeVertex(vertex:Vertex):void
 		{
-			verticies = verticies.filter(function (item:Vertex, index:int, vector:Vector.<Vertex>):Boolean { 
+			_verticies = verticies.filter(function (item:Vertex, index:int, vector:Vector.<Vertex>):Boolean { 
 				return item.id != vertex.id; 
 			});
 		}
@@ -53,7 +56,7 @@ package ggs.graphcore {
 		
 		public function removeEdge(edge:Edge):void
 		{
-			edges = edges.filter(function (item:Edge, index:int, vector:Vector.<Edge>):Boolean { 
+			_edges = edges.filter(function (item:Edge, index:int, vector:Vector.<Edge>):Boolean { 
 				return item.id != edge.id;
 			});
 		}

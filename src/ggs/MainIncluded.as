@@ -1,6 +1,10 @@
 import flash.events.KeyboardEvent;
 import ggs.ApplicationMode;
 import ggs.GGSApplication;
+import ggs.graphcore.Graph;
+import ggs.graphcore.Vertex;
+import ggs.problem.Pursuer;
+import ggs.problem.Task;
 import mx.core.FlexGlobals;
 import spark.components.ButtonBar;
 import spark.events.IndexChangeEvent; 
@@ -10,7 +14,7 @@ private var app:GGSApplication;
 
 private function onApplicationComplete():void
 {
-	app = new GGSApplication(canvas);
+	app = new GGSApplication(canvas, InitTaskGenerator.generate());
 	FlexGlobals.topLevelApplication.addEventListener(KeyboardEvent.KEY_UP, keyHandler);
 }
 
